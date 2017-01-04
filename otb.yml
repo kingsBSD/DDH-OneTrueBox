@@ -1,0 +1,179 @@
+---
+- hosts: vbox
+  remote_user: ubuntu
+  sudo: yes
+  roles:
+  - { role: yutannihilation.module-cran }
+  
+  tasks:
+
+  - name: Get the QGIS repository key    
+    apt_key: url=http://qgis.org/downloads/qgis-2016.gpg.key state=present
+    
+  - name: Add the QGIS repository  
+    apt_repository: repo="deb http://qgis.org/debian xenial main" state=present
+
+  - name: Add the CRAN repository key  
+    apt_key: keyserver=keyserver.ubuntu.com id=E084DAB9 
+
+  - name: Add the CRAN repository  
+    apt_repository: repo="deb https://cran.r-project.org/bin/linux/ubuntu/ xenial main" state=present
+
+  - name: Update and upgrade apt packages
+    command: apt-get update
+    ignore_errors: True
+  
+  - name: Install Python package dependencies
+    apt: name={{item}} state=installed
+    with_items:
+    - build-essential
+    - python3-dev
+    - python3-pip
+    - python-setuptools
+    - gfortran
+    - gfortran-4.8
+    - libblas-dev
+    - libblas3
+    - liblapack-dev
+    - liblapack3
+    - libopenblas-base
+    - libcurl4-openssl-dev
+    - python-pycurl
+    - python-dev
+    - python-pip
+    - libxft-dev 
+    - libpng-dev
+    - libfreetype6-dev
+    - pkg-config
+    - virtualenv
+    
+  - name: Install Python packages
+    pip: executable=pip3 name={{item}}
+    with_items:
+    - matplotlib
+    - nltk
+    - numpy
+    - pandas
+    - seaborn
+    - scipy
+    - scikit-learn
+    - pyldavis
+    - lda
+    - gensim
+    - pyemd
+    - folium
+    - flask
+    - requests
+    - bs4
+    - twython
+    - python-twitter
+    - jupyter
+    
+  - name: Install QuantumGIS
+    apt: name={{item}} state=installed
+    with_items:
+    - qgis
+    - python-qgis
+    - qgis-plugin-grass
+    
+  - name: Install Spyder
+    apt: name=spyder state=installed
+
+  - name: Install R
+    apt: name=r-base state=installed    
+      
+  - name: Install Rstudio
+    apt: deb=https://download1.rstudio.org/rstudio-1.0.136-amd64.deb
+    
+  - name: Install R package dependencies
+    apt: name={{item}} state=installed
+    with_items:
+    - libjpeg-turbo8-dev
+    - libssl-dev
+    - libgsl2
+    - libgsl-dev
+    - libxml2-dev
+    - libzmq3-dev
+    
+  - name: Install R packages
+    cran: name={{item}} state=present
+    with_items:
+    - devtools
+    - httr
+    - RCurl
+    - plyr
+    - rjson
+    - stringr
+    - reshape2
+    - ggplot2
+    - scales
+    - crayon
+    - pbdZMQ
+    
+  - name: Get ngramr 1.4.5
+    get_url: url=https://cran.r-project.org/src/contrib/Archive/ngramr/ngramr_1.4.5.tar.gz dest=/ngramr_1.4.5.tar.gz
+    
+  - name: Install ngramr
+    command: R CMD INSTALL /ngramr_1.4.5.tar.gz
+      
+  - name: Get slam 1.37
+    get_url: url=http://cran.r-project.org/src/contrib/Archive/slam/slam_0.1-37.tar.gz dest=/slam_0.1-37.tar.gz
+ 
+  - name: Install slam
+    command: R CMD INSTALL /slam_0.1-37.tar.gz
+    
+  - name: Install R Jupyter kernel
+    command: R -e "devtools::install_github('IRkernel/IRkernel')"
+
+  - name: Install the kernel system-wide
+    command: R -e "IRkernel::installspec()"    
+    
+  - name: Install more R packages
+    cran: name={{item}} state=present
+    with_items:
+    - NeuralNetTools
+    - RColorBrewer
+    - RedditExtractoR
+    - Rfacebook
+    - XML
+    - arules
+    - catdata
+    - cluster
+    - corrplot 
+    - dplyr
+    - ggmap
+    - ggvis
+    - googleVis
+    - h2o
+    - igraph
+    - jpeg
+    - jsonlite
+    - magrittr
+    - maps
+    - nnet
+    - recommenderlab
+    - rpart
+    - rworldmap
+    - shiny
+    - swirl
+    - tm
+    - topicmodels
+    - twitteR
+    - wordcloud
+    - repr
+    - IRdisplay
+    - crayon
+    - pbdZMQ
+    - devtools
+    
+  - name: Configure Lightdm
+    copy: src=/lightdm.conf dest=/etc/lightdm/lightdm.conf.d/lightdm.conf mode=0644
+    
+  - name: Copy desktop files
+    copy: src="{{ item }}" dest=/home/ubuntu/Desktop/ mode=0555
+    with_fileglob:
+    - /icons/*
+    
+  - name: Run Jupyter on boot
+    copy: src=/rc.local dest=/etc/rc.local    
+    

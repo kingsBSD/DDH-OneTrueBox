@@ -16,10 +16,11 @@ Since Ansible will only be acting on a local VM, security will be sacrificed for
 Edit "/etc/sudoers" with `sudo visudo -f /etc/sudoers` and add the line `ubuntu ALL=(ALL) NOPASSWD:ALL`.
 
 Log out of the VM, Ansible can do the rest. Grab the [cran module](https://github.com/yutannihilation/ansible-module-cran).
-One more hideous concession to convenience: 'export ANSIBLE_HOST_KEY_CHECKING=False'
+One more hideous concession to convenience: `export ANSIBLE_HOST_KEY_CHECKING=False`
 Finally, run the playbook: `ansible-playbook --module-path=./ansible-module-cran/library otb.yml`
 
 For convenience, just build and run the Docker container:
 
 ```sudo docker build -t otb ddh-otb/DDH-OneTrueBox
+
 sudo docker run --rm --net=host otb```

@@ -1,0 +1,2 @@
+[vbox]
+localhost:8022 ansible_user=ubuntu ansible_ssh_pass=ubuntu

@@ -1,0 +1,3 @@
+#!/bin/sh -e
+cd /home/ubuntu && sudo -u ubuntu jupyter notebook --no-browser --ip=0.0.0.0 --NotebookApp.token="" &
+exit 0
