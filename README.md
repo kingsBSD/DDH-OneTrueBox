@@ -21,6 +21,8 @@ Finally, run the playbook: `ansible-playbook --module-path=./ansible-module-cran
 
 For convenience, just build and run the Docker container:
 
-```sudo docker build -t otb ddh-otb/DDH-OneTrueBox
+```
+sudo docker build -t otb ddh-otb/DDH-OneTrueBox
 
-sudo docker run --rm --net=host otb```
+sudo docker run --rm --net=host otb
+```
