@@ -21,7 +21,7 @@ restore VirtualBox VMs may make it a more flexible solution than installing a co
 
 ## Using the VM.
 
-All a end-user need do is select "import appliance" from the VirtualBox file menu and click "start". A simple XFCE desktop will
+All an end-user need do is select "import appliance" from the VirtualBox file menu and click "start". A simple XFCE desktop will
 appear with icons for [QGIS](http://www.qgis.org/en/site/), [Rstudio](https://www.rstudio.com/) and Spyder.
 A [Jupyter Notebook](http://jupyter.org/) server will automatically be running at `http://localhost:8888`, with both Python3
 and R kernels available.
