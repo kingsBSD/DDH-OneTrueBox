@@ -4,7 +4,9 @@ An Ansible playbook for provisioning a VirtualBox VM with data-science tools for
 Distributing data-science tools to end-users with limited computing experience can be a problem.
 The book ["Mining the Social Web"](https://github.com/ptwobrussell/Mining-the-Social-Web-2nd-Edition) provides a Vagrant image for
 making its various Ipython/Jupyter notebooks and the libraries they require available, but this requires some familiarity with the
-commandline, which could intimidate users before they run a single line of code. Experience has shown that novice users are quite
+commandline, which could intimidate users before they run a single line of code.
+[Experience](https://big-social-data.net/2015/05/16/masterclass-hacking-the-mobile-ecosystem/) has
+[shown](https://big-social-data.net/2015/01/10/a-long-overdue-updates-on-the-success-of-our-second-hackathon/) that novice users are quite
 capable of installing [VirtualBox](https://www.virtualbox.org/) and importing and launching appliances, however. For browser-based
 tools like [Jupyter](http://jupyter.org/) and [Rstudio Server](https://www.rstudio.com/products/rstudio/download-server/),
 [Docker](https://www.docker.com/) is a convenient tool for managing libraries and their depenendices, as shown by the popular
@@ -19,7 +21,7 @@ restore VirtualBox VMs may make it a more flexible solution than installing a co
 
 ## Using the VM.
 
-All a user need do is select "import appliance" from the VirtualBox file menu and click "start". A simple XFCE desktop will
+All a end-user need do is select "import appliance" from the VirtualBox file menu and click "start". A simple XFCE desktop will
 appear with icons for [QGIS](http://www.qgis.org/en/site/), [Rstudio](https://www.rstudio.com/) and Spyder.
 A [Jupyter Notebook](http://jupyter.org/) server will automatically be running at `http://localhost:8888`, with both Python3
 and R kernels available.
@@ -42,10 +44,11 @@ Since Ansible will only be acting on a local VM, security will be sacrificed for
 Edit "/etc/sudoers" with `sudo visudo -f /etc/sudoers` and add the line `ubuntu ALL=(ALL) NOPASSWD:ALL`.
 
 Log out of the VM, Ansible can now do the rest. Grab the [cran module](https://github.com/yutannihilation/ansible-module-cran).
-One more hideous concession to convenience: `export ANSIBLE_HOST_KEY_CHECKING=False`
+One more hideous concession of security to convenience: `export ANSIBLE_HOST_KEY_CHECKING=False`
 Finally, run the playbook: `ansible-playbook --module-path=./ansible-module-cran/library otb.yml`
 
-For convenience, just build and run the Docker container:
+For convenience, just build and run the supplied Docker image: (The base [Alpine](https://hub.docker.com/_/alpine/)
+image is very small.) 
 
 ```
 sudo docker build -t otb ddh-otb/DDH-OneTrueBox
