@@ -17,7 +17,7 @@ makes more sense to install software on the VirtualBox VM directly. While perhap
 [Ansible](https://www.ansible.com/) provides a means for specifying and documenting the VM. The ability to clone, snapshot and
 restore VirtualBox VMs may make it a more flexible solution than installing a complete Anaconda distribution.
 
-## Building the VM.
+## Using the VM.
 
 All a user need do is select "import appliance" from the VirtualBox file menu and click "start". A simple XFCE desktop will
 appear with icons for [QGIS](http://www.qgis.org/en/site/), [Rstudio](https://www.rstudio.com/) and Spyder.
