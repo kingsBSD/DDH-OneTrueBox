@@ -1,6 +1,14 @@
 # DDH-OneTrueBox
 An Ansible playbook for provisioning a VirtualBox VM with data-science tools for Digital Humanities.
 
+The book ["Mining the Social Web"](https://github.com/ptwobrussell/Mining-the-Social-Web-2nd-Edition) provides a Vagrant image for
+making its various Ipython/Jupyter notebooks and the libraries they require available, but this requires some familiarity with the
+commandline, which could intimidate users before they run a single line of code. Experience has shown that novice users are quite
+capable of installing [VirtualBox](https://www.virtualbox.org/) and importing and launching appliances, however. For browser-based
+tools like [Jupyter](http://jupyter.org/) and [Rstudio Server](https://www.rstudio.com/products/rstudio/download-server/),
+[Docker](https://www.docker.com/) is a convenient tool for managing libraries and their depenendices, as shown by the popular
+[Hadleyverse image](https://github.com/rocker-org/hadleyverse).
+
 Start by putting a [minimal Ubuntu 16.04 installation](https://help.ubuntu.com/community/Installation/MinimalCD) on a VirtualBox VM.
 Create a user called "ubuntu" with password "ubuntu", forgo everything but basic system utilities, the OpenSSH server and the minimal XFCE desktop.
 Set up port-forwarding on the VM in the "Advanced options" of the network settings:
