@@ -171,7 +171,7 @@
     copy: src=/lightdm.conf dest=/etc/lightdm/lightdm.conf.d/lightdm.conf mode=0555
     
   - name: Copy desktop files
-    copy: src="{{ item }}" dest=/home/ubuntu/Desktop/ mode=0655 owner=ubuntu group=ubuntu
+    copy: src="{{ item }}" dest=/home/ubuntu/Desktop/ mode=0755 owner=ubuntu group=ubuntu
     with_fileglob:
     - /icons/*
     
