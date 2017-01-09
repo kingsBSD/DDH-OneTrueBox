@@ -126,7 +126,7 @@
     command: R -e "devtools::install_github('IRkernel/IRkernel')"
 
   - name: Install the kernel system-wide
-    command: R -e "IRkernel::installspec()"    
+    command: R -e "IRkernel::installspec(user = FALSE)"    
     
   - name: Install more R packages
     cran: name={{item}} state=present
@@ -165,15 +165,26 @@
     - crayon
     - pbdZMQ
     - devtools
+    - lubridate
     
   - name: Configure Lightdm
-    copy: src=/lightdm.conf dest=/etc/lightdm/lightdm.conf.d/lightdm.conf mode=0644
+    copy: src=/lightdm.conf dest=/etc/lightdm/lightdm.conf.d/lightdm.conf mode=0555
     
   - name: Copy desktop files
-    copy: src="{{ item }}" dest=/home/ubuntu/Desktop/ mode=0555
+    copy: src="{{ item }}" dest=/home/ubuntu/Desktop/ mode=0655 owner=ubuntu group=ubuntu
     with_fileglob:
     - /icons/*
     
   - name: Run Jupyter on boot
-    copy: src=/rc.local dest=/etc/rc.local    
+    copy: src=/rc.local dest=/etc/rc.local
     
+  - name: Swirl course directory
+    file: path=/home/ubuntu/swirlcourses owner=ubuntu state=directory
+  
+  - name: Swirl data directory
+    file: path=/home/ubuntu/swirldata owner=ubuntu state=directory
+  
+  - name: Configure .Rprofile
+    copy: src=/.Rprofile dest=/home/ubuntu/.Rprofile mode=0644 owner=ubuntu 
+  
+  

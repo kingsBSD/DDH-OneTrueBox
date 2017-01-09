@@ -51,7 +51,7 @@ For convenience, just build and run the supplied Docker image: (The base [Alpine
 image is very small.) 
 
 ```
-sudo docker build -t otb /DDH-OneTrueBox
+sudo docker build -t otb DDH-OneTrueBox
 
 sudo docker run --rm --net=host otb
 ```
