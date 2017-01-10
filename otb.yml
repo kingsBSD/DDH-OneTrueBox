@@ -22,7 +22,15 @@
   - name: Update and upgrade apt packages
     command: apt-get update
     ignore_errors: True
-  
+
+  - name: Install some utilities
+    apt: name={{item}} state=installed
+    with_items:
+    - wget
+    - curl
+    - screen
+    - git
+    
   - name: Install Python package dependencies
     apt: name={{item}} state=installed
     with_items:
@@ -54,6 +62,7 @@
     - nltk
     - numpy
     - pandas
+    - networkx
     - seaborn
     - scipy
     - scikit-learn
@@ -66,7 +75,9 @@
     - requests
     - bs4
     - twython
+    - tagme
     - python-twitter
+    - python-rake
     - jupyter
     
   - name: Install QuantumGIS
@@ -185,6 +196,13 @@
     file: path=/home/ubuntu/swirldata owner=ubuntu state=directory
   
   - name: Configure .Rprofile
-    copy: src=/.Rprofile dest=/home/ubuntu/.Rprofile mode=0644 owner=ubuntu 
+    copy: src=/.Rprofile dest=/home/ubuntu/.Rprofile mode=0644 owner=ubuntu group=ubuntu
+    
+  - name: Tutorials directory
+    file: path=/home/ubuntu/tutorials owner=ubuntu state=directory
+    
+  - name: Get the RAKE tutorial
+    git: repo=https://github.com/zelandiya/RAKE-tutorial.git dest=/home/ubuntu/tutorials/RAKE-tutorial  
   
-  
+  - name: Give the user ownership of the tutorials directory
+    file: path=/home/ubuntu/tutorials owner=ubuntu group=ubuntu recurse=yes
