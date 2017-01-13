@@ -24,7 +24,7 @@ restore VirtualBox VMs may make it a more flexible solution than installing a co
 All an end-user need do is select "import appliance" from the VirtualBox file menu and click "start". A simple XFCE desktop will
 appear with icons for [QGIS](http://www.qgis.org/en/site/), [Rstudio](https://www.rstudio.com/) and Spyder.
 A [Jupyter Notebook](http://jupyter.org/) server will automatically be running at `http://localhost:8888`, with both Python3
-and R kernels available.
+and R kernels available. 
 
 ## Building the VM.
 
@@ -38,13 +38,13 @@ Set up port-forwarding on the VM in the "Advanced options" of the network settin
 | SSH     | 8022      | 22         |
 | Jupyter | 8888      | 8888       |
 
-SSH into the VM: `ssh -p 8022 ubuntu@localhost`.
+Install the [VirtualBox guest addtions](https://www.virtualbox.org/manual/ch04.html#idm1948), and set the "shared clipboard" in the advanced
+general settings to "bidirectional". SSH into the VM: `ssh -p 8022 ubuntu@localhost`.
 Ansible just needs Python and the apt module: `sudo apt-get install python python-apt`.
 Since Ansible will only be acting on a local VM, security will be sacrificed for convenience.
 Edit "/etc/sudoers" with `sudo visudo -f /etc/sudoers` and add the line `ubuntu ALL=(ALL) NOPASSWD:ALL`.
 
-Log out of the VM, Ansible can now do the rest. Grab the [cran module](https://github.com/yutannihilation/ansible-module-cran).
-One more hideous concession of security to convenience: `export ANSIBLE_HOST_KEY_CHECKING=False`
+Log out of the VM, Ansible can now do the rest. One more hideous concession of security to convenience: `export ANSIBLE_HOST_KEY_CHECKING=False`
 Finally, run the playbook: `ansible-playbook --module-path=./ansible-module-cran/library otb.yml`
 
 For convenience, just build and run the supplied Docker image: (The base [Alpine](https://hub.docker.com/_/alpine/)
