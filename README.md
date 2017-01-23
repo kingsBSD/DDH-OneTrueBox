@@ -24,7 +24,7 @@ restore VirtualBox VMs may make it a more flexible solution than installing a co
 All an end-user need do is select "import appliance" from the VirtualBox file menu and click "start". A simple XFCE desktop will
 appear with icons for [QGIS](http://www.qgis.org/en/site/), [Rstudio](https://www.rstudio.com/) and Spyder.
 A [Jupyter Notebook](http://jupyter.org/) server will automatically be running at `http://localhost:8888`, with both Python3
-and R kernels available. Rstudio is also available in the browser at `http://localhost:8787`.
+and R kernels available.
 ## Building the VM.
 
 Very little needs to be done to the VM by hand before Ansible can take over the process.
@@ -36,7 +36,6 @@ Set up port-forwarding on the VM in the "Advanced options" of the network settin
 |---------|-----------|------------|
 | SSH     | 8022      | 22         |
 | Jupyter | 8888      | 8888       |
-| Rstudio | 8787      | 8787       |
 
 Install the [VirtualBox guest addtions](https://www.virtualbox.org/manual/ch04.html#idm1948), and set the "shared clipboard" in the advanced
 general settings to "bidirectional". SSH into the VM: `ssh -p 8022 ubuntu@localhost`.
