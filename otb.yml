@@ -145,14 +145,14 @@
   - name: Install R
     apt: name=r-base state=installed    
 
-#  - name: Install Rstudio LaTeX dependencies
-#    apt: name={{item}} state=installed
-#    with_items:    
-#    - texlive-latex-base
-#    - texlive-fonts-recommended
-#    - texlive-fonts-extra
-#    - texlive-latex-extra
-#    - texinfo    
+  - name: Install Rstudio LaTeX dependencies
+    apt: name={{item}} state=installed
+    with_items:    
+    - texlive-latex-base
+    - texlive-fonts-recommended
+    - texlive-fonts-extra
+    - texlive-latex-extra
+    - texinfo    
     
   - name: Install Rstudio
     apt: deb=https://download1.rstudio.org/rstudio-1.0.136-amd64.deb
