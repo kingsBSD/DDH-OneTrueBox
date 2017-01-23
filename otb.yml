@@ -19,12 +19,12 @@
   - name: Add the CRAN repository  
     apt_repository: repo="deb https://cran.r-project.org/bin/linux/ubuntu/ xenial main" state=present
 
-  - name: Add the graph-tool repository key  
-    apt_key: keyserver=pgp.skewed.de id=612DEFB798507F25
-    retries: 3
+#  - name: Add the graph-tool repository key  
+#    apt_key: keyserver=pgp.skewed.de id=612DEFB798507F25
+#    retries: 3
     
-  - name: Add the graph-tool repository
-    apt_repository: repo="deb http://downloads.skewed.de/apt/xenial xenial universe" state=present
+#  - name: Add the graph-tool repository
+#    apt_repository: repo="deb http://downloads.skewed.de/apt/xenial xenial universe" state=present
     
 # https://github.com/ansible/ansible-modules-core/issues/2951
 
@@ -71,9 +71,10 @@
     - libfreetype6-dev
     - pkg-config
     - virtualenv
-    - python3-graph-tool
     - python-igraph
     - libssl-dev
+
+#    - python3-graph-tool
     
   - name: Install Python packages
     pip: executable=pip3 name={{item}}
@@ -144,14 +145,14 @@
   - name: Install R
     apt: name=r-base state=installed    
 
-  - name: Install Rstudio LaTeX dependencies
-    apt: name={{item}} state=installed
-    with_items:    
-    - texlive-latex-base
-    - texlive-fonts-recommended
-    - texlive-fonts-extra
-    - texlive-latex-extra
-    - texinfo    
+#  - name: Install Rstudio LaTeX dependencies
+#    apt: name={{item}} state=installed
+#    with_items:    
+#    - texlive-latex-base
+#    - texlive-fonts-recommended
+#    - texlive-fonts-extra
+#    - texlive-latex-extra
+#    - texinfo    
     
   - name: Install Rstudio
     apt: deb=https://download1.rstudio.org/rstudio-1.0.136-amd64.deb
@@ -165,8 +166,8 @@
     - libxml2-dev
     - libzmq3-dev
     
-  - name: Install Rstudio-Server
-    apt: deb=https://download2.rstudio.org/rstudio-server-1.0.136-amd64.deb
+#  - name: Install Rstudio-Server
+#    apt: deb=https://download2.rstudio.org/rstudio-server-1.0.136-amd64.deb
     
   - name: Install R packages
     cran: name={{item}} state=present
